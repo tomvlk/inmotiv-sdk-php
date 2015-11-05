@@ -1,0 +1,21 @@
+{
+    "name": "iliakondrashov/inmotiv-sdk-php",
+    "description": "InMotiv RDC SOAP PHP client",
+    "authors": [
+        {
+            "name": "Ilia Kondrashov",
+            "email": "caseycs@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "InMotivClient\\": "app/"
+        }
+    },
+    "require-dev": {
+        "raveren/kint": "~1.0",
+        "phpunit/phpunit": "~5.0",
+        "mockery/mockery": "0.9.*",
+        "vlucas/phpdotenv": "~2.0"
+    }
+}

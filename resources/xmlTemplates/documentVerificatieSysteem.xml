@@ -1,0 +1,13 @@
+<documentVerificatieSysteem xmlns="urn:dvsserver">
+    <Vraag>
+        <DOCUMENTVERIFICATIESYSTEEM>
+            <ALGEMENEGEGEVENS>
+                <RDCNUMMER>{{ rdc }}</RDCNUMMER>
+                <WACHTWOORD1/>
+                <WACHTWOORD2/>
+            </ALGEMENEGEGEVENS>
+            <RIJBEWIJSNUMMER>{{ drivingLicenceNumber }}</RIJBEWIJSNUMMER>
+            <GEBOORTEDATUM>{{ driverBirthday }}</GEBOORTEDATUM>
+        </DOCUMENTVERIFICATIESYSTEEM>
+    </Vraag>
+</documentVerificatieSysteem>
