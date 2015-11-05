@@ -26,6 +26,18 @@ bool(true)
 
 See full example in [example.php](example.php).
 
+### Debug mode
+
+Request and response headers and bodies can be printed by forcing debug mode of the client.
+Notice the last optional argument:
+
+```
+$client = new InMotivClient(111111, 'rdc111111999', 'xxxXXXxxx', true);
+
+```
+
+Now lots of details became visible.
+
 ## What is currently implemented
 
 * driver licence check
