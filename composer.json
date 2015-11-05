@@ -17,5 +17,15 @@
         "phpunit/phpunit": "~5.0",
         "mockery/mockery": "0.9.*",
         "vlucas/phpdotenv": "~2.0"
-    }
+    },
+    "licence": "MIT",
+    "keywords": [
+        "api",
+        "soap",
+        "rdc",
+        "rdw",
+        "inmotiv",
+        "netherland",
+        "holland"
+     ]
 }
