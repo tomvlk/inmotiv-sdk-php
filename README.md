@@ -24,7 +24,7 @@ And result should be
 bool(true)
 ```
 
-See full example in `example.php`.
+See full example in [example.php](example.php).
 
 ## What is currently implemented
 
@@ -37,12 +37,18 @@ See full example in `example.php`.
 ## How to test
 
 Since InMotiv does not have open sandbox account, you have to create `.env` file in the project root with
-your credentials:
+your credentials. Also you need to provide a valid driver licence details.
 
 ```
 INMOTIV_CLIENT_NUMBER=111111
 INMOTIV_USERNAME=rdc111111999
 INMOTIV_PASSWORD=xxxXXXxxx
+
+DRIVER_LICENCE_NUMBER=xxxxxxxxxx
+BIRTHDAY_YEAR=2000
+BIRTHDAY_MONTH=10
+BIRTHDAY_DAY=10
+
 ```
 
 Then just run `./vendor/bin/phpunit`. Everything should be green.
