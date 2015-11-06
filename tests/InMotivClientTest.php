@@ -1,4 +1,5 @@
 <?php
+use InMotivClient\Container\VehicleInfoContainer;
 use InMotivClient\InMotivClient;
 use InMotivClient\ProductionEndpointProvider;
 use InMotivClient\XmlBuilder;
@@ -70,19 +71,28 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
         ));
     }
 
-    public function test_isDriverLicenceValid_invalidXml()
-    {
-        $this->markTestIncomplete();
-        $this->assertTrue($this->client->isDriverLicenceValid(
-            '<invalidXml',
-            getenv('BIRTHDAY_YEAR'),
-            getenv('BIRTHDAY_MONTH'),
-            getenv('BIRTHDAY_DAY')
-        ));
-    }
-
     public function test_vehicleInfo_success()
     {
-        $this->client->vehicleInfo('22PBR4');
+        $result = $this->client->vehicleInfo(getenv('NUMBERPLATES'));
+        $this->assertInstanceOf(VehicleInfoContainer::class, $result);
+        $this->assertSame('HONDA', $result->getBrand());
+        $this->assertSame(647, $result->getEngineCC());
+        $this->assertSame(2005, $result->getProductionYear());
+    }
+
+    /**
+     * @expectedException \InMotivClient\Exception\VehicleNotFoundException
+     */
+    public function test_vehicleInfo_fail()
+    {
+        $this->client->vehicleInfo(str_repeat('1', strlen(getenv('NUMBERPLATES'))));
+    }
+
+    /**
+     * @expectedException \InMotivClient\Exception\XmlBuilder\RequestXmlInvalidException
+     */
+    public function test_vehicleInfo_invalidXml()
+    {
+        $this->client->vehicleInfo('invalid < xml & value');
     }
 }

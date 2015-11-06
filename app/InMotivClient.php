@@ -1,8 +1,11 @@
 <?php
 namespace InMotivClient;
 
+use InMotivClient\Container\VehicleInfoContainer;
 use InMotivClient\Exception\IncorrectFieldException;
 use InMotivClient\Exception\UnexpectedResponseException;
+use InMotivClient\Exception\VehicleNotFoundException;
+use SimpleXMLElement;
 
 class InMotivClient
 {
@@ -41,7 +44,7 @@ class InMotivClient
         $clientNumber,
         $username,
         $password,
-        $debug = false
+        $debug = true
     ) {
         $this->endpointProvider = $endpointProvider;
         $this->xmlBuilder = $xmlBuilder;
@@ -87,15 +90,27 @@ class InMotivClient
 
     /**
      * @param string $numberplate
+     * @return VehicleInfoContainer
+     * @throws VehicleNotFoundException
      */
     public function vehicleInfo($numberplate)
     {
         $xml = $this->xmlBuilder->buildRequestOpvragenVoertuigscanMSI($this->clientNumber, $numberplate);
 
         $client = $this->getClient($this->endpointProvider->getVTS());
-        $sax = $client->request('opvragenVoertuigscanMSI', $xml);
+        $sxe = $client->request('opvragenVoertuigscanMSI', $xml);
 
-        echo $sax;
+        $nodes = $sxe->xpath('//*[local-name() = "Kentekengegevens"][@Verwerkingsstatus="00"]');
+        if (!count($nodes)) {
+            throw new VehicleNotFoundException;
+        }
+
+        $brand = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Merk"]');
+        $productionYear = $this->extractFirstNodeValue($sxe, '//*[local-name() = "DatumEersteToelating"]');
+        $cc = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Cilinderinhoud"]');
+
+        $result = new VehicleInfoContainer($brand, (int)substr($productionYear, 0, 4), (int)$cc);
+        return $result;
     }
 
     /**
@@ -115,5 +130,20 @@ class InMotivClient
             $this->debug
         );
         return $this->clients[$url];
+    }
+
+    /**
+     * @param SimpleXMLElement $sax
+     * @param string $xpathExpression
+     * @return string
+     */
+    private function extractFirstNodeValue(SimpleXMLElement $sax, $xpathExpression)
+    {
+        $nodes = $sax->xpath($xpathExpression);
+        if (count($nodes) < 1) {
+            $msg = sprintf('Expected at lest one node by expression: %s', $xpathExpression);
+            throw new UnexpectedResponseException($msg);
+        }
+        return (string)$nodes[0];
     }
 }

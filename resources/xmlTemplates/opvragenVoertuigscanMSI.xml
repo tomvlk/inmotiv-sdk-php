@@ -4,6 +4,45 @@
         <Kenteken>{{ numberplate }}</Kenteken>
         <Gegevens>
             <Voertuiggegevens/>
+            <Registratiegegevens/>
+            <EigenaarHistorie/>
+            <BrandstofEnKleur/>
+            <Gewichtsgegevens/>
+            <Milieugegevens/>
+            <KentekenNieuwwaarde/>
+            <Verbruiksgegevens/>
+            <Technischespecificatie>
+                <CarrosserieGegevens/>
+                <TransmissieGegevens/>
+                <RemGegevens/>
+                <MotorGegevens/>
+            </Technischespecificatie>
+            <PrijsModelType/>
+            <PreferenteUitvoeringenlijst/>
+            <PreferenteUitvoering/>
+            <DetailPreferenteUitvoering/>
+            <PrijsPreferenteUitvoering/>
+            <Typekeuring>
+                <!--<EEGVoertuigcategorie/>-->
+                <!--<Fabrikantgegevens/>-->
+                <Typekeuringsgegevens/>
+                <BasisgegevensUitvoering/>
+                <Motorgegevens>
+                    <Motorbrandstofgegevens>
+                        <Emissiegegevens/>
+                        <Geluidsgegevens/>
+                        <!--<Verbruiksgegevems/>-->
+                    </Motorbrandstofgegevens>
+                </Motorgegevens>
+                <Asgegevens/>
+                <Carrosseriegegevens/>
+                <Versnellinggegevens/>
+                <PlaatsVINgegevens/>
+                <Richtlijngegevens/>
+                <Certificeringgegevens/>
+                <!--<Merkgegevens/>-->
+                <!--<Handelsgegevens/>-->
+            </Typekeuring>
         </Gegevens>
     </VoertuigscanQuery>
 </opvragenVoertuigscanMSI>

@@ -54,9 +54,6 @@ Now lots of details became visible.
 ## What is currently implemented
 
 * driver licence check
-
-## Implementation in progress
-
 * vehicle details by numberplates
 
 ## How to test
@@ -73,6 +70,8 @@ DRIVER_LICENCE_NUMBER=xxxxxxxxxx
 BIRTHDAY_YEAR=2000
 BIRTHDAY_MONTH=10
 BIRTHDAY_DAY=10
+
+NUMBERPLATES=05MMGG
 ```
 
 Then just run `./vendor/bin/phpunit`. Everything should be green.

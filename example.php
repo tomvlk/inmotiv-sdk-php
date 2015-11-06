@@ -21,11 +21,17 @@ $client = new InMotivClient(
     true
 );
 
+//driver licence check
 $result = $client->isDriverLicenceValid(
     getenv('DRIVER_LICENCE_NUMBER'),
     getenv('BIRTHDAY_YEAR'),
     getenv('BIRTHDAY_MONTH'),
     getenv('BIRTHDAY_DAY')
 );
+
+var_dump($result);
+
+//vehicle info
+$result = $client->vehicleInfo(getenv('NUMBERPLATES'));
 
 var_dump($result);

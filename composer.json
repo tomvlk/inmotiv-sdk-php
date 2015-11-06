@@ -27,5 +27,7 @@
         "inmotiv",
         "netherland",
         "holland"
-     ]
+     ],
+    "require": {
+    }
 }
