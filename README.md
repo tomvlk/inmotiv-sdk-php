@@ -54,7 +54,7 @@ Now lots of details became visible.
 ## What is currently implemented
 
 * driver licence check
-* vehicle details by numberplates
+* very basic vehicle details by numberplates
 
 ## How to test
 
