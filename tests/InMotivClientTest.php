@@ -73,7 +73,7 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
 
     public function test_vehicleInfo_success()
     {
-        $result = $this->client->vehicleInfo(getenv('NUMBERPLATES'));
+        $result = $this->client->getVehicleInfo(getenv('NUMBERPLATES'));
         $this->assertInstanceOf(VehicleInfoContainer::class, $result);
         $this->assertSame('HONDA', $result->getBrand());
         $this->assertSame(647, $result->getEngineCC());
@@ -85,7 +85,7 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
      */
     public function test_vehicleInfo_fail()
     {
-        $this->client->vehicleInfo(str_repeat('1', strlen(getenv('NUMBERPLATES'))));
+        $this->client->getVehicleInfo(str_repeat('1', strlen(getenv('NUMBERPLATES'))));
     }
 
     /**
@@ -93,6 +93,6 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
      */
     public function test_vehicleInfo_invalidXml()
     {
-        $this->client->vehicleInfo('invalid < xml & value');
+        $this->client->getVehicleInfo('invalid < xml & value');
     }
 }

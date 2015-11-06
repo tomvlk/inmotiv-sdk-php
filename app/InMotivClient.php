@@ -44,7 +44,7 @@ class InMotivClient
         $clientNumber,
         $username,
         $password,
-        $debug = true
+        $debug = false
     ) {
         $this->endpointProvider = $endpointProvider;
         $this->xmlBuilder = $xmlBuilder;
@@ -93,7 +93,7 @@ class InMotivClient
      * @return VehicleInfoContainer
      * @throws VehicleNotFoundException
      */
-    public function vehicleInfo($numberplate)
+    public function getVehicleInfo($numberplate)
     {
         $xml = $this->xmlBuilder->buildRequestOpvragenVoertuigscanMSI($this->clientNumber, $numberplate);
 
