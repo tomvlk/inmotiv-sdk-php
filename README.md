@@ -12,7 +12,7 @@ For example you can check whether driver licence is valid or not by number and o
 
 Fill your InMotiv credentials and driver license details in the code below: 
 
-```
+```php
 $xmlBuilder = new XmlBuilder();
 $client = new InMotivClient(111111, 'rdc111111999', 'xxxXXXxxx');
 var_dump($client->isDriverLicenceValid('1111111111', 1990, 1, 1));
@@ -31,7 +31,7 @@ See full example in [example.php](example.php).
 Request and response headers and bodies can be printed by forcing debug mode of the client.
 Notice the last optional argument:
 
-```
+```php
 $client = new InMotivClient(111111, 'rdc111111999', 'xxxXXXxxx', true);
 ```
 
