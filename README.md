@@ -33,7 +33,6 @@ Notice the last optional argument:
 
 ```
 $client = new InMotivClient(111111, 'rdc111111999', 'xxxXXXxxx', true);
-
 ```
 
 Now lots of details became visible.
@@ -60,7 +59,6 @@ DRIVER_LICENCE_NUMBER=xxxxxxxxxx
 BIRTHDAY_YEAR=2000
 BIRTHDAY_MONTH=10
 BIRTHDAY_DAY=10
-
 ```
 
 Then just run `./vendor/bin/phpunit`. Everything should be green.
