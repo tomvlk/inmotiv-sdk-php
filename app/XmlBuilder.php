@@ -29,7 +29,7 @@ class XmlBuilder
      * @param string $birthday
      * @return string
      */
-    public function renderDocumentVerificatieSysteem($clientNumber, $drivingLicenceNumber, $birthday)
+    public function buildRequestDocumentVerificatieSysteem($clientNumber, $drivingLicenceNumber, $birthday)
     {
         $data = [
             'rdc' => $clientNumber,
@@ -44,7 +44,7 @@ class XmlBuilder
      * @param string $numberplate
      * @return string
      */
-    public function renderOpvragenVoertuigscanMSI($clientNumber, $numberplate)
+    public function buildRequestOpvragenVoertuigscanMSI($clientNumber, $numberplate)
     {
         $data = [
             'rdc' => $clientNumber,

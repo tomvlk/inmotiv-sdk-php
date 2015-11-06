@@ -6,11 +6,14 @@ use InMotivClient\Exception\UnexpectedResponseException;
 
 class InMotivClient
 {
-    const DVS_WSDL = 'https://services.rdc.nl/dvs/1.0/wsdl';
-    const VTS_WSDL = 'https://services.rdc.nl/voertuigscan/2.0/wsdl';
+    /** @var SoapClientWrapper[] */
+    private $clients;
+
+    /** @var XmlBuilder */
+    private $xmlBuilder;
 
     /** @var string */
-    private $rdcClientNumber;
+    private $clientNumber;
 
     /** @var string */
     private $username;
@@ -21,25 +24,32 @@ class InMotivClient
     /** @var bool */
     private $debug;
 
-    /** @var InMotivSoapClient[] */
-    private $clients;
-
-    /** @var XmlBuilder */
-    private $xmlBuilder;
+    /** @var EndpointProviderInterface */
+    private $endpointProvider;
 
     /**
-     * @param string $rdcClientNumber
+     * @param EndpointProviderInterface $endpointProvider
+     * @param XmlBuilder $xmlBuilder
+     * @param string $clientNumber
      * @param string $username
      * @param string $password
-     * @param XmlBuilder $xmlBuilder
      * @param bool $debug
      */
-    public function __construct($rdcClientNumber, $username, $password, XmlBuilder $xmlBuilder, $debug = false)
-    {
-        $this->rdcClientNumber = $rdcClientNumber;
+    public function __construct(
+        EndpointProviderInterface $endpointProvider,
+        XmlBuilder $xmlBuilder,
+        $clientNumber,
+        $username,
+        $password,
+        $debug = false
+    ) {
+        $this->endpointProvider = $endpointProvider;
+        $this->xmlBuilder = $xmlBuilder;
+
+        $this->clientNumber = $clientNumber;
         $this->username = $username;
         $this->password = $password;
-        $this->xmlBuilder = $xmlBuilder;
+
         $this->debug = $debug;
     }
 
@@ -56,15 +66,14 @@ class InMotivClient
             throw new IncorrectFieldException('Driving licence number should be numeric');
         }
 
-        $client = $this->getClient(self::DVS_WSDL);
-
         $birthday = sprintf('%04d%02d%02d', $birthYear, $birthMonth, $birthDay);
-        $xml = $this->xmlBuilder->renderDocumentVerificatieSysteem(
-            $this->rdcClientNumber,
+        $xml = $this->xmlBuilder->buildRequestDocumentVerificatieSysteem(
+            $this->clientNumber,
             $drivingLicenceNumber,
             $birthday
         );
 
+        $client = $this->getClient($this->endpointProvider->getDVS());
         $sax = $client->request('documentVerificatieSysteem', $xml);
 
         $nodes = $sax->xpath('//*[local-name() = "RIJBEWIJSGELDIG"]');
@@ -81,9 +90,9 @@ class InMotivClient
      */
     public function vehicleInfo($numberplate)
     {
-        $client = $this->getClient(self::VTS_WSDL);
+        $xml = $this->xmlBuilder->buildRequestOpvragenVoertuigscanMSI($this->clientNumber, $numberplate);
 
-        $xml = $this->xmlBuilder->renderOpvragenVoertuigscanMSI($this->rdcClientNumber, $numberplate);
+        $client = $this->getClient($this->endpointProvider->getVTS());
         $sax = $client->request('opvragenVoertuigscanMSI', $xml);
 
         echo $sax;
@@ -91,14 +100,14 @@ class InMotivClient
 
     /**
      * @param string $url
-     * @return InMotivSoapClient
+     * @return SoapClientWrapper
      */
     private function getClient($url)
     {
         if (isset($this->clients[$url])) {
             return isset($this->clients[$url]);
         }
-        $this->clients[$url] = new InMotivSoapClient(
+        $this->clients[$url] = new SoapClientWrapper(
             $url,
             $this->username,
             $this->password,

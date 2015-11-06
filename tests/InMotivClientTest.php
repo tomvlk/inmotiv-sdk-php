@@ -1,5 +1,6 @@
 <?php
 use InMotivClient\InMotivClient;
+use InMotivClient\ProductionEndpointProvider;
 use InMotivClient\XmlBuilder;
 
 class InMotivClientTest extends PHPUnit_Framework_TestCase
@@ -11,12 +12,15 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        $endpointProvider = new ProductionEndpointProvider();
         $xmlBuilder = new XmlBuilder();
         $this->client = new InMotivClient(
+            $endpointProvider,
+            $xmlBuilder,
             getenv('INMOTIV_CLIENT_NUMBER'),
             getenv('INMOTIV_USERNAME'),
             getenv('INMOTIV_PASSWORD'),
-            $xmlBuilder
+            false
         );
     }
 
@@ -75,5 +79,10 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
             getenv('BIRTHDAY_MONTH'),
             getenv('BIRTHDAY_DAY')
         ));
+    }
+
+    public function test_vehicleInfo_success()
+    {
+        $this->client->vehicleInfo('22PBR4');
     }
 }

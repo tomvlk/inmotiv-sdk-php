@@ -10,7 +10,7 @@ use SoapFault;
 use SoapHeader;
 use SoapVar;
 
-class InMotivSoapClient extends SoapClient
+class SoapClientWrapper
 {
     const HEADER_NAMESPACE = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
 
@@ -34,6 +34,9 @@ class InMotivSoapClient extends SoapClient
 
     /** @var XmlBuilder */
     private $xmlBuilder;
+
+    /** @var bool */
+    private $debug;
 
     /**
      * @param string $url
@@ -101,6 +104,7 @@ class InMotivSoapClient extends SoapClient
         echo 'RESPONSE:' . PHP_EOL;
         echo $this->soapClient->__getLastResponseHeaders();
         echo $this->soapClient->__getLastResponse();
+        echo PHP_EOL . PHP_EOL;
     }
 
     /**

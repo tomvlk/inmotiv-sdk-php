@@ -1,6 +1,7 @@
 <?php
 use Dotenv\Dotenv;
 use InMotivClient\InMotivClient;
+use InMotivClient\ProductionEndpointProvider;
 use InMotivClient\XmlBuilder;
 
 require 'vendor/autoload.php';
@@ -8,12 +9,15 @@ require 'vendor/autoload.php';
 $dotenv = new Dotenv(__DIR__);
 $dotenv->load();
 
+$endpointProvider = new ProductionEndpointProvider();
 $xmlBuilder = new XmlBuilder();
+
 $client = new InMotivClient(
+    $endpointProvider,
+    $xmlBuilder,
     getenv('INMOTIV_CLIENT_NUMBER'),
     getenv('INMOTIV_USERNAME'),
     getenv('INMOTIV_PASSWORD'),
-    $xmlBuilder,
     true
 );
 
