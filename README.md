@@ -59,7 +59,7 @@ Now lots of details became visible.
 ## How to test
 
 Since InMotiv does not have open sandbox account, you have to create `.env` file in the project root with
-your credentials. Also you need to provide a valid driver licence details.
+your credentials. Also you need to provide a valid driver licence and numberplates details.
 
 ```
 INMOTIV_CLIENT_NUMBER=111111
@@ -71,7 +71,8 @@ BIRTHDAY_YEAR=2000
 BIRTHDAY_MONTH=10
 BIRTHDAY_DAY=10
 
-NUMBERPLATES=05MMGG
+NUMBERPLATES_MOTORCYCLE=05MMGG
+NUMBERPLATES_CAR=XXAAAX
 ```
 
 Then just run `./vendor/bin/phpunit`. Everything should be green.

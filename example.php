@@ -32,6 +32,6 @@ $result = $client->isDriverLicenceValid(
 var_dump($result);
 
 //vehicle info
-$result = $client->getVehicleInfo(getenv('NUMBERPLATES'));
+$result = $client->getVehicleInfo(getenv('NUMBERPLATES_CAR'));
 
 var_dump($result);

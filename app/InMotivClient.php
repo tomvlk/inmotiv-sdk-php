@@ -109,7 +109,10 @@ class InMotivClient
         $productionYear = $this->extractFirstNodeValue($sxe, '//*[local-name() = "DatumEersteToelating"]');
         $cc = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Cilinderinhoud"]');
 
-        $result = new VehicleInfoContainer($brand, (int)substr($productionYear, 0, 4), (int)$cc);
+        $rdwClassSxe = $this->extractFirstNode($sxe, '//*[local-name() = "VoertuigClassificatieRDW"]');
+        $rdwClass = (int)$rdwClassSxe->attributes()->Code;
+
+        $result = new VehicleInfoContainer($brand, (int)substr($productionYear, 0, 4), (int)$cc, $rdwClass);
         return $result;
     }
 
@@ -139,11 +142,21 @@ class InMotivClient
      */
     private function extractFirstNodeValue(SimpleXMLElement $sax, $xpathExpression)
     {
+        return (string)$this->extractFirstNode($sax, $xpathExpression);
+    }
+
+    /**
+     * @param SimpleXMLElement $sax
+     * @param string $xpathExpression
+     * @return SimpleXMLElement
+     */
+    private function extractFirstNode(SimpleXMLElement $sax, $xpathExpression)
+    {
         $nodes = $sax->xpath($xpathExpression);
         if (count($nodes) < 1) {
             $msg = sprintf('Expected at lest one node by expression: %s', $xpathExpression);
             throw new UnexpectedResponseException($msg);
         }
-        return (string)$nodes[0];
+        return $nodes[0];
     }
 }

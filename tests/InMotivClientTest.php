@@ -71,13 +71,24 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
         ));
     }
 
-    public function test_vehicleInfo_success()
+    public function test_vehicleInfo_successCar()
     {
-        $result = $this->client->getVehicleInfo(getenv('NUMBERPLATES'));
+        $result = $this->client->getVehicleInfo(getenv('NUMBERPLATES_CAR'));
+        $this->assertInstanceOf(VehicleInfoContainer::class, $result);
+        $this->assertSame('SKODA', $result->getBrand());
+        $this->assertSame(1197, $result->getEngineCC());
+        $this->assertSame(2011, $result->getProductionYear());
+        $this->assertFalse($result->isMotorcycle());
+    }
+
+    public function test_vehicleInfo_successMotorcycle()
+    {
+        $result = $this->client->getVehicleInfo(getenv('NUMBERPLATES_MOTORCYCLE'));
         $this->assertInstanceOf(VehicleInfoContainer::class, $result);
         $this->assertSame('HONDA', $result->getBrand());
         $this->assertSame(647, $result->getEngineCC());
         $this->assertSame(2005, $result->getProductionYear());
+        $this->assertTrue($result->isMotorcycle());
     }
 
     /**
@@ -85,13 +96,13 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
      */
     public function test_vehicleInfo_fail()
     {
-        $this->client->getVehicleInfo(str_repeat('1', strlen(getenv('NUMBERPLATES'))));
+        $this->client->getVehicleInfo(str_repeat('1', strlen(getenv('NUMBERPLATES_CAR'))));
     }
 
     /**
      * @expectedException \InMotivClient\Exception\XmlBuilder\RequestXmlInvalidException
      */
-    public function test_vehicleInfo_invalidXml()
+    public function test_vehicleInfo_invalidRequestXml()
     {
         $this->client->getVehicleInfo('invalid < xml & value');
     }

@@ -3,6 +3,9 @@ namespace InMotivClient\Container;
 
 class VehicleInfoContainer
 {
+    const CLASS_MOTORCYCLE = 12;
+    const CLASS_MOTORCYCLE_WITH_SIDECAR = 13;
+
     /** @var string */
     private $brand;
 
@@ -16,12 +19,14 @@ class VehicleInfoContainer
      * @param string $brand
      * @param int $productionYear
      * @param float $engineCC
+     * @param int $rdwClass
      */
-    public function __construct($brand, $productionYear, $engineCC)
+    public function __construct($brand, $productionYear, $engineCC, $rdwClass)
     {
         $this->brand = $brand;
         $this->productionYear = $productionYear;
         $this->engineCC = $engineCC;
+        $this->rdwClass = $rdwClass;
     }
 
     /**
@@ -46,5 +51,13 @@ class VehicleInfoContainer
     public function getEngineCC()
     {
         return $this->engineCC;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMotorcycle()
+    {
+        return $this->rdwClass === self::CLASS_MOTORCYCLE || $this->rdwClass === self::CLASS_MOTORCYCLE_WITH_SIDECAR;
     }
 }
