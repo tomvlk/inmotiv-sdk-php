@@ -15,18 +15,23 @@ class VehicleInfoContainer
     /** @var float */
     private $engineCC;
 
+    /** @var bool */
+    private $isStolen;
+
     /**
      * @param string $brand
      * @param int $productionYear
      * @param float $engineCC
      * @param int $rdwClass
+     * @param bool $isStolen
      */
-    public function __construct($brand, $productionYear, $engineCC, $rdwClass)
+    public function __construct($brand, $productionYear, $engineCC, $rdwClass, $isStolen)
     {
         $this->brand = $brand;
         $this->productionYear = $productionYear;
         $this->engineCC = $engineCC;
         $this->rdwClass = $rdwClass;
+        $this->isStolen = $isStolen;
     }
 
     /**
@@ -59,5 +64,13 @@ class VehicleInfoContainer
     public function isMotorcycle()
     {
         return $this->rdwClass === self::CLASS_MOTORCYCLE || $this->rdwClass === self::CLASS_MOTORCYCLE_WITH_SIDECAR;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStolen()
+    {
+        return $this->isStolen;
     }
 }

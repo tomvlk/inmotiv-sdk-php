@@ -112,7 +112,10 @@ class InMotivClient
         $rdwClassSxe = $this->extractFirstNode($sxe, '//*[local-name() = "VoertuigClassificatieRDW"]');
         $rdwClass = (int)$rdwClassSxe->attributes()->Code;
 
-        $result = new VehicleInfoContainer($brand, (int)substr($productionYear, 0, 4), (int)$cc, $rdwClass);
+        $rdwClassSxe = $this->extractFirstNode($sxe, '//*[local-name() = "StatusGestolen"]');
+        $isStolen = (string)$rdwClassSxe->attributes()->Code !== '0';
+
+        $result = new VehicleInfoContainer($brand, (int)substr($productionYear, 0, 4), (int)$cc, $rdwClass, $isStolen);
         return $result;
     }
 

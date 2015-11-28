@@ -2,6 +2,7 @@
 use InMotivClient\Container\VehicleInfoContainer;
 use InMotivClient\InMotivClient;
 use InMotivClient\ProductionEndpointProvider;
+use InMotivClient\SandboxEndpointProvider;
 use InMotivClient\XmlBuilder;
 
 class InMotivClientTest extends PHPUnit_Framework_TestCase
@@ -13,7 +14,7 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $endpointProvider = new ProductionEndpointProvider();
+        $endpointProvider = new SandboxEndpointProvider();
         $xmlBuilder = new XmlBuilder();
         $this->client = new InMotivClient(
             $endpointProvider,
@@ -79,6 +80,7 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
         $this->assertSame(1197, $result->getEngineCC());
         $this->assertSame(2011, $result->getProductionYear());
         $this->assertFalse($result->isMotorcycle());
+        $this->assertFalse($result->isStolen());
     }
 
     public function test_vehicleInfo_successMotorcycle()
@@ -89,6 +91,7 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
         $this->assertSame(647, $result->getEngineCC());
         $this->assertSame(2005, $result->getProductionYear());
         $this->assertTrue($result->isMotorcycle());
+        $this->assertFalse($result->isStolen());
     }
 
     /**
