@@ -1,0 +1,49 @@
+<opvragenVoertuigscanMSI xmlns="http://nsp.rdc.nl/RDC/voertuigscan">
+    <VoertuigscanQuery>
+        <RDCNummer>{{ rdc }}</RDCNummer>
+        <Kenteken>{{ numberplate }}</Kenteken>
+        <Gegevens>
+            <Voertuiggegevens/>
+            <Registratiegegevens/>
+            <EigenaarHistorie/>
+            <BrandstofEnKleur/>
+            <Gewichtsgegevens/>
+            <Milieugegevens/>
+            <Voertuigstatussen/>
+            <KentekenNieuwwaarde/>
+            <!--<Verbruiksgegevens/>-->
+            <Technischespecificatie>
+                <CarrosserieGegevens/>
+                <TransmissieGegevens/>
+                <RemGegevens/>
+                <MotorGegevens/>
+            </Technischespecificatie>
+            <!--<PrijsModelType/>-->
+            <!--<PreferenteUitvoeringenlijst/>-->
+            <!--<PreferenteUitvoering/>-->
+            <!--<DetailPreferenteUitvoering/>-->
+            <!--<PrijsPreferenteUitvoering/>-->
+            <!--<Typekeuring>-->
+                <!--<EEGVoertuigcategorie/>-->
+                <!--<Fabrikantgegevens/>-->
+                <!--<Typekeuringsgegevens/> €9.60 per request, Karl!    -->
+                <!--<BasisgegevensUitvoering/>-->
+                <!--<Motorgegevens>-->
+                    <!--<Motorbrandstofgegevens>-->
+                        <!--<Emissiegegevens/>-->
+                        <!--<Geluidsgegevens/>-->
+                        <!--&lt;!&ndash;<Verbruiksgegevems/>&ndash;&gt;-->
+                    <!--</Motorbrandstofgegevens>-->
+                <!--</Motorgegevens>-->
+                <!--<Asgegevens/>-->
+                <!--<Carrosseriegegevens/>-->
+                <!--<Versnellinggegevens/>-->
+                <!--<PlaatsVINgegevens/>-->
+                <!--<Richtlijngegevens/>-->
+                <!--<Certificeringgegevens/>-->
+                <!--<Merkgegevens/>-->
+                <!--<Handelsgegevens/>-->
+            <!--</Typekeuring>-->
+        </Gegevens>
+    </VoertuigscanQuery>
+</opvragenVoertuigscanMSI>
