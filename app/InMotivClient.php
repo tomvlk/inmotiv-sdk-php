@@ -3,6 +3,7 @@ namespace InMotivClient;
 
 use InMotivClient\Container\VehicleInfoContainer;
 use InMotivClient\Exception\IncorrectFieldException;
+use InMotivClient\Exception\SoapException;
 use InMotivClient\Exception\UnexpectedResponseException;
 use InMotivClient\Exception\VehicleNotFoundException;
 use SimpleXMLElement;
@@ -92,6 +93,8 @@ class InMotivClient
      * @param string $numberplate
      * @return VehicleInfoContainer
      * @throws VehicleNotFoundException
+     * @throws SoapException
+     * @throws IncorrectFieldException
      */
     public function getVehicleInfo($numberplate)
     {
