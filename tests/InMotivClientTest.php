@@ -14,7 +14,7 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $endpointProvider = new SandboxEndpointProvider();
+        $endpointProvider = new ProductionEndpointProvider();
         $xmlBuilder = new XmlBuilder();
         $this->client = new InMotivClient(
             $endpointProvider,
