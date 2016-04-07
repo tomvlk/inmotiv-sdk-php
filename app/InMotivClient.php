@@ -63,6 +63,8 @@ class InMotivClient
      * @param int $birthMonth
      * @param int $birthDay
      * @return bool
+     * @throws IncorrectFieldException
+     * @throws SoapException
      */
     public function isDriverLicenceValid($drivingLicenceNumber, $birthYear, $birthMonth, $birthDay)
     {
