@@ -28,7 +28,7 @@ class VehicleInfoContainer
     private $isStolen;
 
     /** @var string */
-    private $raw;
+    private $rawResponse;
 
     /**
      * @param string $brand
@@ -39,8 +39,19 @@ class VehicleInfoContainer
      * @param int $catalogPrice
      * @param int $rdwClass
      * @param bool $isStolen
+     * @param string $rawResponse
      */
-    public function __construct($brand, $productionYear, $engineCC, $horsePower, $weight, $catalogPrice, $rdwClass, $isStolen, $raw)
+    public function __construct(
+        $brand,
+        $productionYear,
+        $engineCC,
+        $horsePower,
+        $weight,
+        $catalogPrice,
+        $rdwClass,
+        $isStolen,
+        $rawResponse
+    )
     {
         $this->brand = $brand;
         $this->productionYear = $productionYear;
@@ -50,7 +61,7 @@ class VehicleInfoContainer
         $this->catalogPrice = $catalogPrice;
         $this->rdwClass = $rdwClass;
         $this->isStolen = $isStolen;
-        $this->raw = $raw;
+        $this->rawResponse = $rawResponse;
     }
 
     /**
@@ -115,5 +126,13 @@ class VehicleInfoContainer
     public function isStolen()
     {
         return $this->isStolen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRawResponse()
+    {
+        return $this->rawResponse;
     }
 }
