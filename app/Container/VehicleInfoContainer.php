@@ -12,26 +12,45 @@ class VehicleInfoContainer
     /** @var int */
     private $productionYear;
 
-    /** @var float */
+    /** @var int */
     private $engineCC;
+
+    /** @var int */
+    private $horsePower;
+
+    /** @var int */
+    private $weight;
+
+    /** @var int */
+    private $catalogPrice;
 
     /** @var bool */
     private $isStolen;
 
+    /** @var string */
+    private $raw;
+
     /**
      * @param string $brand
      * @param int $productionYear
-     * @param float $engineCC
+     * @param int $engineCC
+     * @param int $horsePower
+     * @param int $weight
+     * @param int $catalogPrice
      * @param int $rdwClass
      * @param bool $isStolen
      */
-    public function __construct($brand, $productionYear, $engineCC, $rdwClass, $isStolen)
+    public function __construct($brand, $productionYear, $engineCC, $horsePower, $weight, $catalogPrice, $rdwClass, $isStolen, $raw)
     {
         $this->brand = $brand;
         $this->productionYear = $productionYear;
         $this->engineCC = $engineCC;
+        $this->horsePower = $horsePower;
+        $this->weight = $weight;
+        $this->catalogPrice = $catalogPrice;
         $this->rdwClass = $rdwClass;
         $this->isStolen = $isStolen;
+        $this->raw = $raw;
     }
 
     /**
@@ -56,6 +75,30 @@ class VehicleInfoContainer
     public function getEngineCC()
     {
         return $this->engineCC;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHorsePower()
+    {
+        return $this->horsePower;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCatalogPrice()
+    {
+        return $this->catalogPrice;
     }
 
     /**

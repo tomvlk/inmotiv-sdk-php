@@ -100,11 +100,7 @@ class InMotivClient
      */
     public function getVehicleInfo($numberplate)
     {
-        $xml = $this->xmlBuilder->buildRequestOpvragenVoertuigscanMSI($this->clientNumber, $numberplate);
-
-        $client = $this->getClient($this->endpointProvider->getVTS());
-        $sxe = $client->request('opvragenVoertuigscanMSI', $xml);
-
+        $sxe = $this->makeVehicleInfoRequest($numberplate, (bool)getenv('INMOTIV_CACHE'));
         $nodes = $sxe->xpath('//*[local-name() = "Kentekengegevens"][@Verwerkingsstatus="00"]');
         if (!count($nodes)) {
             throw new VehicleNotFoundException;
@@ -113,6 +109,9 @@ class InMotivClient
         $brand = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Merk"]');
         $productionYear = $this->extractFirstNodeValue($sxe, '//*[local-name() = "DatumEersteToelating"]');
         $cc = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Cilinderinhoud"]');
+        $horsePower = $this->extractFirstNodeValue($sxe, '//*[local-name() = "VermogenPK"]');
+        $weight = $this->extractFirstNodeValue($sxe, '//*[local-name() = "MassaLeegVoertuig"]');
+        $catalogPrice = $this->extractFirstNodeValue($sxe, '//*[local-name() = "PrijsConsument"]');
 
         $rdwClassSxe = $this->extractFirstNode($sxe, '//*[local-name() = "VoertuigClassificatieRDW"]');
         $rdwClass = (int)$rdwClassSxe->attributes()->Code;
@@ -120,8 +119,44 @@ class InMotivClient
         $rdwClassSxe = $this->extractFirstNode($sxe, '//*[local-name() = "StatusGestolen"]');
         $isStolen = (string)$rdwClassSxe->attributes()->Code !== '0';
 
-        $result = new VehicleInfoContainer($brand, (int)substr($productionYear, 0, 4), (int)$cc, $rdwClass, $isStolen);
+        $result = new VehicleInfoContainer(
+            $brand,
+            (int)substr($productionYear, 0, 4),
+            (int)$cc,
+            (int)$horsePower,
+            (int)$weight,
+            (int)$catalogPrice,
+            $rdwClass,
+            $isStolen,
+            $sxe->saveXML()
+        );
         return $result;
+    }
+
+    /**
+     * @param string $numberplate
+     * @param bool $useCache
+     * @return SimpleXMLElement
+     */
+    private function makeVehicleInfoRequest($numberplate, $useCache)
+    {
+        $xml = $this->xmlBuilder->buildRequestOpvragenVoertuigscanMSI($this->clientNumber, $numberplate);
+        $client = $this->getClient($this->endpointProvider->getVTS());
+
+        if ($useCache) {
+            $cachePath = __DIR__ . '/../cache/' . md5($numberplate);
+            if (is_file($cachePath)) {
+                return new SimpleXMLElement(file_get_contents($cachePath));
+            }
+        }
+
+        $sxe = $client->request('opvragenVoertuigscanMSI', $xml);
+
+        if ($useCache) {
+            file_put_contents($cachePath, $sxe->saveXML());
+        }
+
+        return $sxe;
     }
 
     /**

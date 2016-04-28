@@ -60,6 +60,9 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
         $this->assertSame('SKODA', $result->getBrand());
         $this->assertSame(1197, $result->getEngineCC());
         $this->assertSame(2011, $result->getProductionYear());
+        $this->assertSame(105, $result->getHorsePower());
+        $this->assertSame(1205, $result->getWeight());
+        $this->assertSame(25630, $result->getCatalogPrice());
         $this->assertFalse($result->isMotorcycle());
         $this->assertFalse($result->isStolen());
     }
@@ -71,6 +74,9 @@ class InMotivClientTest extends PHPUnit_Framework_TestCase
         $this->assertSame('HONDA', $result->getBrand());
         $this->assertSame(647, $result->getEngineCC());
         $this->assertSame(2005, $result->getProductionYear());
+        $this->assertSame(53, $result->getHorsePower());
+        $this->assertSame(221, $result->getWeight());
+        $this->assertSame(0, $result->getCatalogPrice());
         $this->assertTrue($result->isMotorcycle());
         $this->assertFalse($result->isStolen());
     }
