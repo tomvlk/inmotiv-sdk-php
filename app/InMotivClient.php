@@ -111,7 +111,11 @@ class InMotivClient
         $cc = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Cilinderinhoud"]');
         $horsePower = $this->extractFirstNodeValue($sxe, '//*[local-name() = "VermogenPK"]');
         $weight = $this->extractFirstNodeValue($sxe, '//*[local-name() = "MassaLeegVoertuig"]');
-        $catalogPrice = $this->extractFirstNodeValue($sxe, '//*[local-name() = "PrijsConsument"]');
+        try {
+            $catalogPrice = $this->extractFirstNodeValue($sxe, '//*[local-name() = "PrijsConsument"]');
+        } catch (UnexpectedResponseException $e) {
+            $catalogPrice = null;
+        }
 
         $rdwClassSxe = $this->extractFirstNode($sxe, '//*[local-name() = "VoertuigClassificatieRDW"]');
         $rdwClass = (int)$rdwClassSxe->attributes()->Code;
