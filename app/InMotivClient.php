@@ -166,7 +166,7 @@ class InMotivClient
     private function getClient($url)
     {
         if (isset($this->clients[$url])) {
-            return isset($this->clients[$url]);
+            return $this->clients[$url];
         }
         $this->clients[$url] = new SoapClientWrapper(
             $url,
