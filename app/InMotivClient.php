@@ -108,11 +108,15 @@ class InMotivClient
 
         $brand = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Merk"]');
         $productionYear = $this->extractFirstNodeValue($sxe, '//*[local-name() = "DatumEersteToelating"]');
-        $cc = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Cilinderinhoud"]');
+        try {
+            $cc = (int)$this->extractFirstNodeValue($sxe, '//*[local-name() = "Cilinderinhoud"]');
+        } catch (UnexpectedResponseException $e) {
+            $cc = null;
+        }
         $horsePower = $this->extractFirstNodeValue($sxe, '//*[local-name() = "VermogenPK"]');
         $weight = $this->extractFirstNodeValue($sxe, '//*[local-name() = "MassaLeegVoertuig"]');
         try {
-            $catalogPrice = $this->extractFirstNodeValue($sxe, '//*[local-name() = "PrijsConsument"]');
+            $catalogPrice = (int)$this->extractFirstNodeValue($sxe, '//*[local-name() = "PrijsConsument"]');
         } catch (UnexpectedResponseException $e) {
             $catalogPrice = null;
         }
@@ -126,10 +130,10 @@ class InMotivClient
         $result = new VehicleInfoContainer(
             $brand,
             (int)substr($productionYear, 0, 4),
-            (int)$cc,
+            $cc,
             (int)$horsePower,
             (int)$weight,
-            (int)$catalogPrice,
+            $catalogPrice,
             $rdwClass,
             $isStolen,
             $sxe->saveXML()
