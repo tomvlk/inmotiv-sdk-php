@@ -94,13 +94,33 @@ class InMotivClient
     /**
      * @param string $numberplate
      * @return VehicleInfoContainer
-     * @throws VehicleNotFoundException
-     * @throws SoapException
-     * @throws IncorrectFieldException
      */
     public function getVehicleInfo($numberplate)
     {
         $sxe = $this->makeVehicleInfoRequest($numberplate, (bool)getenv('INMOTIV_CACHE'));
+        return $this->buildVehicleInfoContainer($sxe);
+    }
+
+    /**
+     * @param string $xml
+     * @return VehicleInfoContainer
+     */
+    public function getVehicleInfoFromXML($xml)
+    {
+        $sxe = new SimpleXMLElement($xml);
+        return $this->buildVehicleInfoContainer($sxe);
+    }
+
+    /**
+     * @param SimpleXMLElement $sxe
+     * @return VehicleInfoContainer
+     *
+     * @throws VehicleNotFoundException
+     * @throws SoapException
+     * @throws IncorrectFieldException
+     */
+    private function buildVehicleInfoContainer(SimpleXMLElement $sxe)
+    {
         $nodes = $sxe->xpath('//*[local-name() = "Kentekengegevens"][@Verwerkingsstatus="00"]');
         if (!count($nodes)) {
             throw new VehicleNotFoundException;
@@ -138,6 +158,7 @@ class InMotivClient
             $isStolen,
             $sxe->saveXML()
         );
+
         return $result;
     }
 
