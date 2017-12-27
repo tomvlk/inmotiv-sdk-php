@@ -127,8 +127,12 @@ class InMotivClient
             throw new VehicleNotFoundException;
         }
 
+        $kenteken = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Kenteken"]');
         $brand = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Merk"]');
+        $typeName = $this->extractFirstNodeValue($sxe, '//*[local-name() = "TypebeschrijvingVoertuig"]');
+        $typeSpecification = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Type"]');
         $productionYear = $this->extractFirstNodeValue($sxe, '//*[local-name() = "DatumEersteToelating"]');
+        $firstAdmissionDate = $this->extractFirstNodeValue($sxe, '//*[local-name() = "DatumEersteInschrijving"]');
         try {
             $cc = (int)$this->extractFirstNodeValue($sxe, '//*[local-name() = "Cilinderinhoud"]');
         } catch (UnexpectedResponseException $e) {
@@ -149,8 +153,13 @@ class InMotivClient
         $isStolen = (string)$rdwClassSxe->attributes()->Code !== '0';
 
         $result = new VehicleInfoContainer(
+            $kenteken,
             $brand,
+            $typeName,
+            $typeSpecification,
             (int)substr($productionYear, 0, 4),
+            new \DateTime(date('c', strtotime($productionYear))),
+            new \DateTime(date('c', strtotime($firstAdmissionDate))),
             $cc,
             (int)$horsePower,
             (int)$weight,

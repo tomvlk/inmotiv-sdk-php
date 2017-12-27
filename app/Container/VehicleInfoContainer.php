@@ -7,7 +7,22 @@ class VehicleInfoContainer
     const CLASS_MOTORCYCLE_WITH_SIDECAR = 13;
 
     /** @var string */
+    private $kenteken;
+
+    /** @var string */
     private $brand;
+
+    /** @var string */
+    private $typeName;
+
+    /** @var string */
+    private $typeSpecification;
+
+    /** @var \DateTime */
+    private $firstRegistration;
+
+    /** @var \DateTime */
+    private $firstAdmission;
 
     /** @var int */
     private $productionYear;
@@ -31,7 +46,12 @@ class VehicleInfoContainer
     private $rawResponse;
 
     /**
+     * @param string $kenteken
      * @param string $brand
+     * @param string $typeName
+     * @param string $typeSpecification
+     * @param \DateTime $firstRegistration
+     * @param \DateTime $firstAdmission
      * @param int $productionYear
      * @param int $engineCC
      * @param int $horsePower
@@ -42,8 +62,13 @@ class VehicleInfoContainer
      * @param string $rawResponse
      */
     public function __construct(
+        $kenteken,
         $brand,
+        $typeName,
+        $typeSpecification,
         $productionYear,
+        $firstRegistration,
+        $firstAdmission,
         $engineCC,
         $horsePower,
         $weight,
@@ -53,8 +78,13 @@ class VehicleInfoContainer
         $rawResponse
     )
     {
+        $this->kenteken = $kenteken;
         $this->brand = $brand;
+        $this->typeName = $typeName;
+        $this->typeSpecification = $typeSpecification;
         $this->productionYear = $productionYear;
+        $this->firstAdmission = $firstAdmission;
+        $this->firstRegistration = $firstRegistration;
         $this->engineCC = $engineCC;
         $this->horsePower = $horsePower;
         $this->weight = $weight;
@@ -134,5 +164,45 @@ class VehicleInfoContainer
     public function getRawResponse()
     {
         return $this->rawResponse;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKenteken()
+    {
+        return $this->kenteken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeName()
+    {
+        return $this->typeName;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFirstRegistration()
+    {
+        return $this->firstRegistration;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeSpecification()
+    {
+        return $this->typeSpecification;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFirstAdmission()
+    {
+        return $this->firstAdmission;
     }
 }
