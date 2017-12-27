@@ -1,5 +1,5 @@
 {
-    "name": "iliakondrashov/inmotiv-sdk-php",
+    "name": "tomvlk/inmotiv-sdk-php",
     "description": "InMotiv RDC SOAP PHP client",
     "authors": [
         {

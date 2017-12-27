@@ -93,11 +93,12 @@ class InMotivClient
 
     /**
      * @param string $numberplate
+     * @param string $type Either 'msi' (default) or 'fsi'.
      * @return VehicleInfoContainer
      */
-    public function getVehicleInfo($numberplate)
+    public function getVehicleInfo($numberplate, $type = 'msi')
     {
-        $sxe = $this->makeVehicleInfoRequest($numberplate, (bool)getenv('INMOTIV_CACHE'));
+        $sxe = $this->makeVehicleInfoRequest($numberplate, (bool)getenv('INMOTIV_CACHE'), $type);
         return $this->buildVehicleInfoContainer($sxe);
     }
 
@@ -165,21 +166,31 @@ class InMotivClient
     /**
      * @param string $numberplate
      * @param bool $useCache
+     * @param string $type either 'msi' or 'fsi'.
      * @return SimpleXMLElement
      */
-    private function makeVehicleInfoRequest($numberplate, $useCache)
+    private function makeVehicleInfoRequest($numberplate, $useCache, $type = 'msi')
     {
-        $xml = $this->xmlBuilder->buildRequestOpvragenVoertuigscanMSI($this->clientNumber, $numberplate);
+        if ($type === 'msi') {
+            $xml = $this->xmlBuilder->buildRequestOpvragenVoertuigscanMSI($this->clientNumber, $numberplate);
+        } else {
+            $xml = $this->xmlBuilder->buildRequestOpvragenVoertuigscanFSI($this->clientNumber, $numberplate);
+        }
+
         $client = $this->getClient($this->endpointProvider->getVTS());
 
         if ($useCache) {
-            $cachePath = __DIR__ . '/../cache/' . md5($numberplate);
+            $cachePath = __DIR__ . '/../cache/' . $type . '_' . md5($numberplate);
             if (is_file($cachePath)) {
                 return new SimpleXMLElement(file_get_contents($cachePath));
             }
         }
 
-        $sxe = $client->request('opvragenVoertuigscanMSI', $xml);
+        if ($type === 'msi') {
+            $sxe = $client->request('opvragenVoertuigscanMSI', $xml);
+        } else {
+            $sxe = $client->request('opvragenVoertuigscanFSI', $xml);
+        }
 
         if ($useCache) {
             file_put_contents($cachePath, $sxe->saveXML());

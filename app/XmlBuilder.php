@@ -54,6 +54,20 @@ class XmlBuilder
     }
 
     /**
+     * @param string $clientNumber
+     * @param string $numberplate
+     * @return string
+     */
+    public function buildRequestOpvragenVoertuigscanFSI($clientNumber, $numberplate)
+    {
+        $data = [
+            'rdc' => $clientNumber,
+            'numberplate' => $numberplate,
+        ];
+        return $this->buildXml('opvragenVoertuigscanFSI', $data);
+    }
+
+    /**
      * @param string $templateFilename
      * @param array $vars
      * @return string

@@ -1,0 +1,15 @@
+<opvragenVoertuigscanFSI xmlns="http://nsp.rdc.nl/RDC/voertuigscan">
+    <VoertuigscanQuery>
+        <RDCNummer>{{ rdc }}</RDCNummer>
+        <Kenteken>{{ numberplate }}</Kenteken>
+        <Gegevens>
+            <Voertuiggegevens/>
+            <Registratiegegevens/>
+            <Gewichtsgegevens/>
+            <Voertuigstatussen/>
+            <Technischespecificatie>
+            </Technischespecificatie>
+            <PrijsModelType/>
+        </Gegevens>
+    </VoertuigscanQuery>
+</opvragenVoertuigscanFSI>
