@@ -141,7 +141,7 @@ class InMotivClient
         $horsePower = $this->extractFirstNodeValue($sxe, '//*[local-name() = "VermogenPK"]');
         $weight = $this->extractFirstNodeValue($sxe, '//*[local-name() = "MassaLeegVoertuig"]');
         try {
-            $catalogPrice = (int)$this->extractFirstNodeValue($sxe, '//*[local-name() = "PrijsConsument"]');
+            $catalogPrice = (int)$this->extractFirstNodeValue($sxe, '//*[local-name() = "PrijsConsumentInBtw"]');
         } catch (UnexpectedResponseException $e) {
             $catalogPrice = null;
         }

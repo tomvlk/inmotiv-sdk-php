@@ -7,9 +7,9 @@
             <Registratiegegevens/>
             <Gewichtsgegevens/>
             <Voertuigstatussen/>
-            <Technischespecificatie>
-            </Technischespecificatie>
+            <Technischespecificatie/>
             <PrijsModelType/>
+            <KentekenNieuwwaarde/>
         </Gegevens>
     </VoertuigscanQuery>
 </opvragenVoertuigscanFSI>
