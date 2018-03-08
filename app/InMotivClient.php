@@ -133,6 +133,7 @@ class InMotivClient
         $typeSpecification = $this->extractFirstNodeValue($sxe, '//*[local-name() = "Type"]');
         $productionYear = $this->extractFirstNodeValue($sxe, '//*[local-name() = "DatumEersteToelating"]');
         $firstAdmissionDate = $this->extractFirstNodeValue($sxe, '//*[local-name() = "DatumEersteInschrijving"]');
+        $registrationDate = $this->extractFirstNodeValue($sxe, '//*[local-name() = "DatumTenaamstelling"]');
         try {
             $cc = (int)$this->extractFirstNodeValue($sxe, '//*[local-name() = "Cilinderinhoud"]');
         } catch (UnexpectedResponseException $e) {
@@ -160,6 +161,7 @@ class InMotivClient
             (int)substr($productionYear, 0, 4),
             new \DateTime(date('c', strtotime($productionYear))),
             new \DateTime(date('c', strtotime($firstAdmissionDate))),
+            new \DateTime(date('c', strtotime($registrationDate))),
             $cc,
             (int)$horsePower,
             (int)$weight,

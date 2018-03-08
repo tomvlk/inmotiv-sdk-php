@@ -22,6 +22,9 @@ class VehicleInfoContainer
     private $firstRegistration;
 
     /** @var \DateTime */
+    private $lastRegistration;
+
+    /** @var \DateTime */
     private $firstAdmission;
 
     /** @var int */
@@ -52,6 +55,7 @@ class VehicleInfoContainer
      * @param string $typeSpecification
      * @param \DateTime $firstRegistration
      * @param \DateTime $firstAdmission
+     * @param \DateTime $lastRegistration
      * @param int $productionYear
      * @param int $engineCC
      * @param int $horsePower
@@ -69,6 +73,7 @@ class VehicleInfoContainer
         $productionYear,
         $firstRegistration,
         $firstAdmission,
+        $lastRegistration,
         $engineCC,
         $horsePower,
         $weight,
@@ -85,6 +90,7 @@ class VehicleInfoContainer
         $this->productionYear = $productionYear;
         $this->firstAdmission = $firstAdmission;
         $this->firstRegistration = $firstRegistration;
+        $this->lastRegistration = $lastRegistration;
         $this->engineCC = $engineCC;
         $this->horsePower = $horsePower;
         $this->weight = $weight;
@@ -204,5 +210,21 @@ class VehicleInfoContainer
     public function getFirstAdmission()
     {
         return $this->firstAdmission;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastRegistration()
+    {
+        return $this->lastRegistration;
+    }
+
+    /**
+     * @param \DateTime $lastRegistration
+     */
+    public function setLastRegistration($lastRegistration)
+    {
+        $this->lastRegistration = $lastRegistration;
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "tomvlk/inmotiv-sdk-php",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "description": "InMotiv RDC SOAP PHP client",
     "authors": [
         {
